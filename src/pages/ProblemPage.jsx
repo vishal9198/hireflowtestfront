@@ -88,7 +88,10 @@ function ProblemPage() {
     setIsRunning(true);
     setOutput(null);
 
-    const result = await executeCode(selectedLanguage, code);
+    const testCases = currentProblem.testCases[selectedLanguage];
+    const finalCode = code + "\n\n" + testCases;
+
+    const result = await executeCode(selectedLanguage, finalCode);
 
     setIsRunning(false);
     setOutput(result);

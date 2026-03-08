@@ -1,7 +1,5 @@
 // Piston API is a service for code execution
 
-const PISTON_API = "https://emkc.org/api/v2/piston";
-
 const LANGUAGE_VERSIONS = {
   javascript: { language: "javascript", version: "15.10.0" },
   python: { language: "python", version: "3.10.0" },
@@ -24,22 +22,20 @@ export async function executeCode(language, code) {
       };
     }
 
-    const response = await fetch(`${PISTON_API}/execute`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/code/execute`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          language: languageConfig.language,
+          version: languageConfig.version,
+          code,
+        }),
       },
-      body: JSON.stringify({
-        language: languageConfig.language,
-        version: languageConfig.version,
-        files: [
-          {
-            content: code,
-          },
-        ],
-      }),
-    });
-
+    );
     if (!response.ok) {
       return {
         success: false,

@@ -46,6 +46,8 @@ export async function executeCode(language, code) {
 
     const data = await response.json();
 
+    console.log("FULL PISTON RESPONSE:", data);
+
     const output = data?.run?.stdout || data?.run?.output || "";
     const stderr = data?.run?.stderr || "";
 

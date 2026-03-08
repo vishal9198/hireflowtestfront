@@ -89,7 +89,11 @@ function ProblemPage() {
     setOutput(null);
 
     const testCases = currentProblem.testCases[selectedLanguage];
+
+    console.log("TEST CASES:", testCases);
     const finalCode = code + "\n\n" + testCases;
+
+    console.log("FINAL CODE SENT TO PISTON:\n", finalCode);
 
     const result = await executeCode(selectedLanguage, finalCode);
 

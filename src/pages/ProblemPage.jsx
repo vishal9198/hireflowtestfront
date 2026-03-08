@@ -91,12 +91,10 @@ function ProblemPage() {
     const result = await executeCode(selectedLanguage, code);
 
     setIsRunning(false);
+    setOutput(result);
 
     if (result.success) {
-      setOutput(result.output);
-
       const expectedOutput = currentProblem.expectedOutput[selectedLanguage];
-
       const testsPassed = checkIfTestsPassed(result.output, expectedOutput);
 
       if (testsPassed) {
@@ -106,7 +104,6 @@ function ProblemPage() {
         toast.error("Tests failed. Check your output!");
       }
     } else {
-      setOutput(result.error);
       toast.error("Code execution failed!");
     }
   };

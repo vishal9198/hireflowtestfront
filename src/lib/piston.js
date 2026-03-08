@@ -7,9 +7,8 @@ const LANGUAGE_VERSIONS = {
 };
 
 /**
- * @param {string} language - programming language
- * @param {string} code - source code to executed
- * @returns {Promise<{success:boolean, output?:string, error?: string}>}
+ * @param {string} language
+ * @param {string} code
  */
 export async function executeCode(language, code) {
   try {
@@ -22,18 +21,22 @@ export async function executeCode(language, code) {
       };
     }
 
-    fetch(`${import.meta.env.VITE_API_URL}/code/execute`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/code/execute`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          language: languageConfig.language,
+          version: languageConfig.version,
+          code,
+        }),
       },
-      body: JSON.stringify({
-        language: languageConfig.language,
-        version: languageConfig.version,
-        code,
-      }),
-    });
+    );
+
     if (!response.ok) {
       return {
         success: false,
@@ -43,13 +46,13 @@ export async function executeCode(language, code) {
 
     const data = await response.json();
 
-    const output = data.run.output || "";
-    const stderr = data.run.stderr || "";
+    const output = data?.run?.output || "";
+    const stderr = data?.run?.stderr || "";
 
     if (stderr) {
       return {
         success: false,
-        output: output,
+        output,
         error: stderr,
       };
     }
@@ -64,14 +67,4 @@ export async function executeCode(language, code) {
       error: `Failed to execute code: ${error.message}`,
     };
   }
-}
-
-function getFileExtension(language) {
-  const extensions = {
-    javascript: "js",
-    python: "py",
-    java: "java",
-  };
-
-  return extensions[language] || "txt";
 }

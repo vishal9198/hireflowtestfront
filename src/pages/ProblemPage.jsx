@@ -19,9 +19,9 @@ function ProblemPage() {
   const [currentProblemId, setCurrentProblemId] = useState("two-sum");
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
   const [code, setCode] = useState(
-    PROBLEMS[currentProblemId].starterCode.javascript
+    PROBLEMS[currentProblemId].starterCode.javascript,
   );
-  const [output, setOutput] = useState(null);
+  const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
 
   const currentProblem = PROBLEMS[currentProblemId];
@@ -71,7 +71,7 @@ function ProblemPage() {
           .replace(/\[\s+/g, "[")
           .replace(/\s+\]/g, "]")
           // normalize spaces around commas to single space after comma
-          .replace(/\s*,\s*/g, ",")
+          .replace(/\s*,\s*/g, ","),
       )
       .filter((line) => line.length > 0)
       .join("\n");
@@ -89,13 +89,14 @@ function ProblemPage() {
     setOutput(null);
 
     const result = await executeCode(selectedLanguage, code);
-    setOutput(result);
+
     setIsRunning(false);
 
-    // check if code executed successfully and matches expected output
-
     if (result.success) {
+      setOutput(result.output);
+
       const expectedOutput = currentProblem.expectedOutput[selectedLanguage];
+
       const testsPassed = checkIfTestsPassed(result.output, expectedOutput);
 
       if (testsPassed) {
@@ -105,6 +106,7 @@ function ProblemPage() {
         toast.error("Tests failed. Check your output!");
       }
     } else {
+      setOutput(result.error);
       toast.error("Code execution failed!");
     }
   };

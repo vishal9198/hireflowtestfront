@@ -1,8 +1,20 @@
 import axios from "axios";
+import { getToken } from "@clerk/clerk-react";
+
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
-  withCredentials: true, //by adding this field browser will send the cookies to server automatically on every request
+  baseURL: import.meta.env.VITE_API_URL,
 });
+
+axiosInstance.interceptors.request.use(async (config) => {
+  const token = await getToken();
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
 export default axiosInstance;
 
 // //for deployment use below code

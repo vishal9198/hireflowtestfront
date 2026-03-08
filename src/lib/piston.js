@@ -1,9 +1,9 @@
 // Piston API is a service for code execution
 
-const PISTON_API = "https://piston-api.run/api/v2/piston";
+const PISTON_API = "https://emkc.org/api/v2/piston";
 
 const LANGUAGE_VERSIONS = {
-  javascript: { language: "javascript", version: "18.15.0" },
+  javascript: { language: "javascript", version: "15.10.0" },
   python: { language: "python", version: "3.10.0" },
   java: { language: "java", version: "15.0.2" },
 };
@@ -34,7 +34,6 @@ export async function executeCode(language, code) {
         version: languageConfig.version,
         files: [
           {
-            name: `main.${getFileExtension(language)}`,
             content: code,
           },
         ],

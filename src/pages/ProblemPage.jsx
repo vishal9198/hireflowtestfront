@@ -95,6 +95,8 @@ function ProblemPage() {
 
     if (result.success) {
       const expectedOutput = currentProblem.expectedOutput[selectedLanguage];
+      console.log("ACTUAL OUTPUT:", result.output);
+      console.log("EXPECTED OUTPUT:", expectedOutput);
       const testsPassed = checkIfTestsPassed(result.output, expectedOutput);
 
       if (testsPassed) {

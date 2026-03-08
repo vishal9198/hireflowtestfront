@@ -22,20 +22,18 @@ export async function executeCode(language, code) {
       };
     }
 
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/code/execute`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          language: languageConfig.language,
-          version: languageConfig.version,
-          code,
-        }),
+    fetch(`${import.meta.env.VITE_API_URL}/code/execute`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({
+        language: languageConfig.language,
+        version: languageConfig.version,
+        code,
+      }),
+    });
     if (!response.ok) {
       return {
         success: false,

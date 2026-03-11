@@ -89,7 +89,11 @@ function SessionPage() {
     setIsRunning(true);
     setOutput(null);
 
-    const result = await executeCode(selectedLanguage, code);
+    const result = await executeCode(
+      problemData?.id || currentProblemId,
+      selectedLanguage,
+      code,
+    );
     setOutput(result);
     setIsRunning(false);
   };

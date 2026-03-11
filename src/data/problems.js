@@ -4,6 +4,7 @@ export const PROBLEMS = {
     title: "Two Sum",
     difficulty: "Easy",
     category: "Array • Hash Table",
+    functionName: "twoSum",
 
     description: {
       text: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
@@ -15,9 +16,16 @@ export const PROBLEMS = {
 
     examples: [
       {
-        input: `4 9
-2 7 11 15`,
-        output: `0 1`,
+        input: "4 9\n2 7 11 15",
+        output: "0 1",
+      },
+      {
+        input: "3 6\n3 2 4",
+        output: "1 2",
+      },
+      {
+        input: "2 6\n3 3",
+        output: "0 1",
       },
     ],
 
@@ -30,14 +38,20 @@ export const PROBLEMS = {
     starterCode: {
       javascript: `const fs = require("fs");
 
-const input = fs.readFileSync(0, "utf8").trim().split("\\n");
+const input = fs.readFileSync(0,"utf8").trim().split("\\n");
 
-const [n, target] = input[0].split(" ").map(Number);
+const [n,target] = input[0].split(" ").map(Number);
 const nums = input[1].split(" ").map(Number);
 
-// Write your solution here
+function twoSum(nums,target){
 
-console.log("");`,
+    // Write your solution here
+
+}
+
+const ans = twoSum(nums,target);
+console.log(ans.join(" "));
+`,
 
       python: `import sys
 
@@ -46,42 +60,66 @@ input = sys.stdin.read().strip().split("\\n")
 n, target = map(int, input[0].split())
 nums = list(map(int, input[1].split()))
 
-# Write your solution here
+def twoSum(nums, target):
+    
+    # Write your solution here
+    pass
 
-print()`,
+ans = twoSum(nums, target)
+print(ans[0], ans[1])
+`,
 
       java: `import java.util.*;
 
 public class Main {
-  public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
 
-    int n = sc.nextInt();
-    int target = sc.nextInt();
+    public static int[] twoSum(int[] nums, int target) {
 
-    int[] nums = new int[n];
-    for(int i=0;i<n;i++) nums[i] = sc.nextInt();
+        // Write your solution here
 
-    // Write your solution here
+        return new int[]{-1,-1};
+    }
 
-    System.out.println();
-  }
-}`,
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int target = sc.nextInt();
+
+        int[] nums = new int[n];
+        for(int i=0;i<n;i++) nums[i] = sc.nextInt();
+
+        int[] ans = twoSum(nums,target);
+
+        System.out.println(ans[0] + " " + ans[1]);
+    }
+}
+`,
 
       cpp: `#include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-  int n, target;
-  cin >> n >> target;
+vector<int> twoSum(vector<int>& nums,int target){
 
-  vector<int> nums(n);
-  for(int i=0;i<n;i++) cin >> nums[i];
+    // Write your solution here
 
-  // Write your solution here
+    return {-1,-1};
+}
 
-  cout << "" << endl;
-}`,
+int main(){
+
+    int n,target;
+    cin>>n>>target;
+
+    vector<int> nums(n);
+    for(int i=0;i<n;i++) cin>>nums[i];
+
+    vector<int> ans = twoSum(nums,target);
+
+    cout<<ans[0]<<" "<<ans[1]<<endl;
+}
+`,
     },
   },
 
@@ -90,58 +128,84 @@ int main() {
     title: "Reverse String",
     difficulty: "Easy",
     category: "String • Two Pointers",
+    functionName: "reverseString",
 
     description: {
-      text: "Reverse a string.",
-      notes: [],
+      text: "Write a function that reverses a string.",
+      notes: ["Return the reversed string."],
     },
 
     examples: [
       {
-        input: `hello`,
-        output: `olleh`,
+        input: "hello",
+        output: "olleh",
       },
     ],
+
+    constraints: ["1 ≤ s.length ≤ 10⁵"],
 
     starterCode: {
       javascript: `const fs = require("fs");
 const s = fs.readFileSync(0,"utf8").trim();
 
-// Write your solution here
+function reverseString(s){
 
-console.log("");`,
+  // Write your solution here
+
+}
+
+console.log(reverseString(s));
+`,
 
       python: `import sys
 s = sys.stdin.read().strip()
 
-# Write your solution here
+def reverseString(s):
 
-print()`,
+    # Write your solution here
+    pass
+
+print(reverseString(s))
+`,
 
       java: `import java.util.*;
 
 public class Main {
-  public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
-    String s = sc.nextLine();
 
-    // Write your solution here
+    public static String reverseString(String s){
 
-    System.out.println();
-  }
-}`,
+        // Write your solution here
+        return "";
+    }
+
+    public static void main(String[] args){
+
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+
+        System.out.println(reverseString(s));
+    }
+}
+`,
 
       cpp: `#include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-  string s;
-  cin >> s;
+string reverseString(string s){
 
-  // Write your solution here
+    // Write your solution here
 
-  cout << "" << endl;
-}`,
+    return "";
+}
+
+int main(){
+
+    string s;
+    cin>>s;
+
+    cout<<reverseString(s)<<endl;
+}
+`,
     },
   },
 
@@ -150,16 +214,17 @@ int main() {
     title: "Valid Palindrome",
     difficulty: "Easy",
     category: "String • Two Pointers",
+    functionName: "isPalindrome",
 
     description: {
-      text: "Check if a string is palindrome ignoring non-alphanumeric characters.",
+      text: "Return true if the string is a palindrome after removing non-alphanumeric characters.",
       notes: [],
     },
 
     examples: [
       {
-        input: `A man, a plan, a canal: Panama`,
-        output: `true`,
+        input: "A man, a plan, a canal: Panama",
+        output: "true",
       },
     ],
 
@@ -167,41 +232,64 @@ int main() {
       javascript: `const fs = require("fs");
 const s = fs.readFileSync(0,"utf8").trim();
 
-// Write your solution here
+function isPalindrome(s){
 
-console.log("");`,
+  // Write your solution here
+
+}
+
+console.log(isPalindrome(s));
+`,
 
       python: `import sys
 s = sys.stdin.read().strip()
 
-# Write your solution here
+def isPalindrome(s):
 
-print()`,
+    # Write your solution here
+    pass
+
+print(isPalindrome(s))
+`,
 
       java: `import java.util.*;
 
 public class Main {
-  public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
-    String s = sc.nextLine();
 
-    // Write your solution here
+    public static boolean isPalindrome(String s){
 
-    System.out.println();
-  }
-}`,
+        // Write your solution here
+        return false;
+    }
+
+    public static void main(String[] args){
+
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+
+        System.out.println(isPalindrome(s));
+    }
+}
+`,
 
       cpp: `#include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-  string s;
-  getline(cin,s);
+bool isPalindrome(string s){
 
-  // Write your solution here
+    // Write your solution here
 
-  cout << "" << endl;
-}`,
+    return false;
+}
+
+int main(){
+
+    string s;
+    getline(cin,s);
+
+    cout<<isPalindrome(s)<<endl;
+}
+`,
     },
   },
 
@@ -210,6 +298,7 @@ int main() {
     title: "Maximum Subarray",
     difficulty: "Medium",
     category: "Array • Dynamic Programming",
+    functionName: "maxSubArray",
 
     description: {
       text: "Find the contiguous subarray with the largest sum.",
@@ -218,63 +307,88 @@ int main() {
 
     examples: [
       {
-        input: `9
--2 1 -3 4 -1 2 1 -5 4`,
-        output: `6`,
+        input: "9\n-2 1 -3 4 -1 2 1 -5 4",
+        output: "6",
       },
     ],
 
     starterCode: {
       javascript: `const fs = require("fs");
+
 const input = fs.readFileSync(0,"utf8").trim().split("\\n");
 
 const n = Number(input[0]);
 const nums = input[1].split(" ").map(Number);
 
-// Write your solution here
+function maxSubArray(nums){
 
-console.log("");`,
+    // Write your solution here
+
+}
+
+console.log(maxSubArray(nums));
+`,
 
       python: `import sys
+
 input = sys.stdin.read().strip().split("\\n")
 
 n = int(input[0])
 nums = list(map(int,input[1].split()))
 
-# Write your solution here
+def maxSubArray(nums):
 
-print()`,
+    # Write your solution here
+    pass
+
+print(maxSubArray(nums))
+`,
 
       java: `import java.util.*;
 
 public class Main {
-  public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
 
-    int n = sc.nextInt();
-    int[] nums = new int[n];
-    for(int i=0;i<n;i++) nums[i] = sc.nextInt();
+    public static int maxSubArray(int[] nums){
 
-    // Write your solution here
+        // Write your solution here
+        return 0;
+    }
 
-    System.out.println();
-  }
-}`,
+    public static void main(String[] args){
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        int[] nums = new int[n];
+        for(int i=0;i<n;i++) nums[i] = sc.nextInt();
+
+        System.out.println(maxSubArray(nums));
+    }
+}
+`,
 
       cpp: `#include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-  int n;
-  cin >> n;
+int maxSubArray(vector<int>& nums){
 
-  vector<int> nums(n);
-  for(int i=0;i<n;i++) cin >> nums[i];
+    // Write your solution here
 
-  // Write your solution here
+    return 0;
+}
 
-  cout << "" << endl;
-}`,
+int main(){
+
+    int n;
+    cin>>n;
+
+    vector<int> nums(n);
+    for(int i=0;i<n;i++) cin>>nums[i];
+
+    cout<<maxSubArray(nums)<<endl;
+}
+`,
     },
   },
 };
@@ -297,7 +411,7 @@ export const LANGUAGE_CONFIG = {
   },
   cpp: {
     name: "C++",
-    icon: "/cpp.png",
+    icon: "/c++.png",
     monacoLang: "cpp",
   },
 };

@@ -4,6 +4,7 @@ const LANGUAGE_VERSIONS = {
   javascript: { language: "javascript", version: "18.15.0" },
   python: { language: "python", version: "3.11.0" },
   java: { language: "java", version: "15.0.2" },
+  cpp: { language: "c++", version: "10.2.0" },
 };
 
 /**

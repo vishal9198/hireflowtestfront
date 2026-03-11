@@ -52,32 +52,6 @@ export const PROBLEMS = {
     }
 }`,
     },
-
-    testCases: {
-      javascript: `
-console.log(twoSum([2,7,11,15],9))
-console.log(twoSum([3,2,4],6))
-console.log(twoSum([3,3],6))
-`,
-      python: `
-print(twoSum([2,7,11,15],9))
-print(twoSum([3,2,4],6))
-print(twoSum([3,3],6))
-`,
-      java: `
-public static void main(String[] args){
-  System.out.println(Arrays.toString(twoSum(new int[]{2,7,11,15},9)));
-  System.out.println(Arrays.toString(twoSum(new int[]{3,2,4},6)));
-  System.out.println(Arrays.toString(twoSum(new int[]{3,3},6)));
-}
-`,
-    },
-
-    expectedOutput: {
-      javascript: "[0,1]\n[1,2]\n[0,1]",
-      python: "[0, 1]\n[1, 2]\n[0, 1]",
-      java: "[0, 1]\n[1, 2]\n[0, 1]",
-    },
   },
 
   "reverse-string": {
@@ -117,44 +91,6 @@ public static void main(String[] args){
     }
 }`,
     },
-
-    testCases: {
-      javascript: `
-let a=["h","e","l","l","o"]
-reverseString(a)
-console.log(a)
-
-let b=["H","a","n","n","a","h"]
-reverseString(b)
-console.log(b)
-`,
-      python: `
-a=["h","e","l","l","o"]
-reverseString(a)
-print(a)
-
-b=["H","a","n","n","a","h"]
-reverseString(b)
-print(b)
-`,
-      java: `
-public static void main(String[] args){
- char[] a={'h','e','l','l','o'};
- reverseString(a);
- System.out.println(Arrays.toString(a));
-
- char[] b={'H','a','n','n','a','h'};
- reverseString(b);
- System.out.println(Arrays.toString(b));
-}
-`,
-    },
-
-    expectedOutput: {
-      javascript: '["o","l","l","e","h"]\n["h","a","n","n","a","H"]',
-      python: "['o', 'l', 'l', 'e', 'h']\n['h', 'a', 'n', 'n', 'a', 'H']",
-      java: "[o, l, l, e, h]\n[h, a, n, n, a, H]",
-    },
   },
 
   "valid-palindrome": {
@@ -188,32 +124,6 @@ public static void main(String[] args){
     }
 }`,
     },
-
-    testCases: {
-      javascript: `
-console.log(isPalindrome("A man, a plan, a canal: Panama"))
-console.log(isPalindrome("race a car"))
-console.log(isPalindrome(" "))
-`,
-      python: `
-print(isPalindrome("A man, a plan, a canal: Panama"))
-print(isPalindrome("race a car"))
-print(isPalindrome(" "))
-`,
-      java: `
-public static void main(String[] args){
- System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
- System.out.println(isPalindrome("race a car"));
- System.out.println(isPalindrome(" "));
-}
-`,
-    },
-
-    expectedOutput: {
-      javascript: "true\nfalse\ntrue",
-      python: "True\nFalse\nTrue",
-      java: "true\nfalse\ntrue",
-    },
   },
 
   "maximum-subarray": {
@@ -239,32 +149,6 @@ public static void main(String[] args){
         return 0;
     }
 }`,
-    },
-
-    testCases: {
-      javascript: `
-console.log(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
-console.log(maxSubArray([1]))
-console.log(maxSubArray([5,4,-1,7,8]))
-`,
-      python: `
-print(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
-print(maxSubArray([1]))
-print(maxSubArray([5,4,-1,7,8]))
-`,
-      java: `
-public static void main(String[] args){
- System.out.println(maxSubArray(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
- System.out.println(maxSubArray(new int[]{1}));
- System.out.println(maxSubArray(new int[]{5,4,-1,7,8}));
-}
-`,
-    },
-
-    expectedOutput: {
-      javascript: "6\n1\n23",
-      python: "6\n1\n23",
-      java: "6\n1\n23",
     },
   },
 };

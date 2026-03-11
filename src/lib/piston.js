@@ -2,7 +2,7 @@
 
 const LANGUAGE_VERSIONS = {
   javascript: { language: "javascript", version: "15.10.0" },
-  python: { language: "python", version: "3.10.0" },
+  python: { language: "python", version: "3.11.0" },
   java: { language: "java", version: "15.0.2" },
 };
 
@@ -10,19 +10,12 @@ const LANGUAGE_VERSIONS = {
  * @param {string} language
  * @param {string} code
  */
-export async function executeCode(language, code) {
+export async function executeCode(problemId, language, code) {
   try {
     const languageConfig = LANGUAGE_VERSIONS[language];
 
-    if (!languageConfig) {
-      return {
-        success: false,
-        error: `Unsupported language: ${language}`,
-      };
-    }
-
     const response = await fetch(
-      `${import.meta.env.VITE_API_URL}/code/execute`,
+      `${import.meta.env.VITE_API_URL}/submissions/submit`,
       {
         method: "POST",
         credentials: "include",
@@ -30,6 +23,7 @@ export async function executeCode(language, code) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          problemId,
           language: languageConfig.language,
           version: languageConfig.version,
           code,
@@ -37,36 +31,26 @@ export async function executeCode(language, code) {
       },
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
       return {
         success: false,
-        error: `HTTP error! status: ${response.status}`,
-      };
-    }
-
-    const data = await response.json();
-
-    console.log("FULL PISTON RESPONSE:", data);
-
-    const output = data?.run?.stdout || data?.run?.output || "";
-    const stderr = data?.run?.stderr || "";
-
-    if (stderr) {
-      return {
-        success: false,
-        output,
-        error: stderr,
+        error: "Submission failed",
       };
     }
 
     return {
       success: true,
-      output: output || "No output",
+      verdict: data.verdict,
+      passed: data.passed,
+      total: data.total,
+      results: data.results,
     };
   } catch (error) {
     return {
       success: false,
-      error: `Failed to execute code: ${error.message}`,
+      error: error.message,
     };
   }
 }

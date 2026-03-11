@@ -88,33 +88,30 @@ function ProblemPage() {
     setIsRunning(true);
     setOutput(null);
 
-    const testCases = currentProblem.testCases[selectedLanguage];
+    try {
+      const result = await executeCode(
+        currentProblemId,
+        selectedLanguage,
+        code,
+      );
 
-    console.log("TEST CASES:", testCases);
-    const finalCode = code + "\n\n" + testCases;
+      setOutput(result);
 
-    console.log("FINAL CODE SENT TO PISTON:\n", finalCode);
-
-    const result = await executeCode(selectedLanguage, finalCode);
+      if (result.success) {
+        if (result.verdict === "Accepted") {
+          triggerConfetti();
+          toast.success(`Accepted (${result.passed}/${result.total})`);
+        } else {
+          toast.error(`Wrong Answer (${result.passed}/${result.total})`);
+        }
+      } else {
+        toast.error(result.error || "Execution failed");
+      }
+    } catch (error) {
+      toast.error("Execution failed");
+    }
 
     setIsRunning(false);
-    setOutput(result);
-
-    if (result.success) {
-      const expectedOutput = currentProblem.expectedOutput[selectedLanguage];
-      console.log("ACTUAL OUTPUT:", result.output);
-      console.log("EXPECTED OUTPUT:", expectedOutput);
-      const testsPassed = checkIfTestsPassed(result.output, expectedOutput);
-
-      if (testsPassed) {
-        triggerConfetti();
-        toast.success("All tests passed! Great job!");
-      } else {
-        toast.error("Tests failed. Check your output!");
-      }
-    } else {
-      toast.error("Code execution failed!");
-    }
   };
 
   return (

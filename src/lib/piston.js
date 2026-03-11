@@ -1,7 +1,7 @@
 // Piston API is a service for code execution
 
 const LANGUAGE_VERSIONS = {
-  javascript: { language: "javascript", version: "15.10.0" },
+  javascript: { language: "javascript", version: "18.15.0" },
   python: { language: "python", version: "3.11.0" },
   java: { language: "java", version: "15.0.2" },
 };

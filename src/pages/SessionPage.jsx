@@ -18,6 +18,7 @@ import OutputPanel from "../components/OutputPanel";
 import useStreamClient from "../hooks/useStreamClient";
 import { StreamCall, StreamVideo } from "@stream-io/video-react-sdk";
 import VideoCallUI from "../components/VideoCallUI";
+import { socket } from "../lib/socket";
 
 function SessionPage() {
   const navigate = useNavigate();
@@ -75,6 +76,16 @@ function SessionPage() {
       setCode(problemData.starterCode[selectedLanguage]);
     }
   }, [problemData, selectedLanguage]);
+
+  useEffect(() => {
+    if (!id) return;
+
+    socket.emit("join-session", id);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [id]);
 
   const handleLanguageChange = (e) => {
     const newLang = e.target.value;

@@ -49,8 +49,16 @@ function twoSum(nums,target){
 
 }
 
-const ans = twoSum(nums,target);
-console.log(ans.join(" "));
+const ans = twoSum(nums, target);
+
+// Safe output wrapper
+if (ans === undefined) {
+  console.log("");
+} else if (Array.isArray(ans)) {
+  console.log(ans.join(" "));
+} else {
+  console.log(ans);
+}
 `,
 
       python: `import sys

@@ -80,10 +80,15 @@ function SessionPage() {
   useEffect(() => {
     if (!id) return;
 
-    socket.emit("join-session", id);
+    socket.connect();
+
+    socket.on("connect", () => {
+      console.log("Socket connected:", socket.id);
+      socket.emit("join-session", id);
+    });
 
     return () => {
-      socket.disconnect();
+      socket.off("connect");
     };
   }, [id]);
 

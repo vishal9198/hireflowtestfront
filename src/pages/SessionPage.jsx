@@ -105,19 +105,19 @@ function SessionPage() {
       });
     });
 
-    useEffect(() => {
-      socket.on("code-update", (newCode) => {
-        console.log("Code updated from other user");
-        setCode(newCode);
-      });
-
-      return () => {
-        socket.off("code-update");
-      };
-    }, []);
-
     return () => {
       socket.off("submission-result");
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.on("code-update", (newCode) => {
+      console.log("Code updated from other user");
+      setCode(newCode);
+    });
+
+    return () => {
+      socket.off("code-update");
     };
   }, []);
 

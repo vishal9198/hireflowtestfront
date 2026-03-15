@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router";
 import {
   useEndSession,
@@ -53,6 +53,7 @@ function SessionPage() {
     problemData?.starterCode?.[selectedLanguage] || "",
   );
 
+  const debounceTimer = useRef(null);
   // auto-join session if user is not already a participant and not the host
   useEffect(() => {
     if (!session || !user || loadingSession) return;
@@ -121,6 +122,29 @@ function SessionPage() {
     };
   }, []);
 
+  useEffect(() => {
+    socket.on("language-update", (language) => {
+      console.log("Language updated from other user:", language);
+
+      setSelectedLanguage(language);
+
+      const starterCode = problemData?.starterCode?.[language] || "";
+      setCode(starterCode);
+    });
+
+    return () => {
+      socket.off("language-update");
+    };
+  }, [problemData]);
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, []);
+
   const handleLanguageChange = (e) => {
     const newLang = e.target.value;
     setSelectedLanguage(newLang);
@@ -128,6 +152,11 @@ function SessionPage() {
     const starterCode = problemData?.starterCode?.[newLang] || "";
     setCode(starterCode);
     setOutput(null);
+
+    socket.emit("language-change", {
+      sessionId: id,
+      language: newLang,
+    });
   };
 
   const handleRunCode = async () => {
@@ -331,10 +360,16 @@ function SessionPage() {
                       onCodeChange={(value) => {
                         setCode(value);
 
-                        socket.emit("code-change", {
-                          sessionId: id,
-                          code: value,
-                        });
+                        if (debounceTimer.current) {
+                          clearTimeout(debounceTimer.current);
+                        }
+
+                        debounceTimer.current = setTimeout(() => {
+                          socket.emit("code-change", {
+                            sessionId: id,
+                            code: value,
+                          });
+                        }, 200);
                       }}
                       onRunCode={handleRunCode}
                     />

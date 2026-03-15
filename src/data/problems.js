@@ -229,6 +229,11 @@ int main(){
       notes: [],
     },
 
+    constraints: [
+      "1 ≤ s.length ≤ 2 × 10⁵",
+      "s consists of only English letters and digits",
+    ],
+
     examples: [
       {
         input: "A man, a plan, a canal: Panama",
@@ -312,6 +317,8 @@ int main(){
       text: "Find the contiguous subarray with the largest sum.",
       notes: [],
     },
+
+    constraints: ["1 ≤ nums.length ≤ 10⁵", "-10⁴ ≤ nums[i] ≤ 10⁴"],
 
     examples: [
       {

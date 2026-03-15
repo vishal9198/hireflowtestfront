@@ -105,6 +105,17 @@ function SessionPage() {
       });
     });
 
+    useEffect(() => {
+      socket.on("code-update", (newCode) => {
+        console.log("Code updated from other user");
+        setCode(newCode);
+      });
+
+      return () => {
+        socket.off("code-update");
+      };
+    }, []);
+
     return () => {
       socket.off("submission-result");
     };
@@ -317,7 +328,14 @@ function SessionPage() {
                       code={code}
                       isRunning={isRunning}
                       onLanguageChange={handleLanguageChange}
-                      onCodeChange={(value) => setCode(value)}
+                      onCodeChange={(value) => {
+                        setCode(value);
+
+                        socket.emit("code-change", {
+                          sessionId: id,
+                          code: value,
+                        });
+                      }}
                       onRunCode={handleRunCode}
                     />
                   </Panel>

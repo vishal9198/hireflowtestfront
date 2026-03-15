@@ -209,7 +209,7 @@ string reverseString(string s){
 int main(){
 
     string s;
-    cin>>s;
+    getline(cin, s);
 
     cout<<reverseString(s)<<endl;
 }

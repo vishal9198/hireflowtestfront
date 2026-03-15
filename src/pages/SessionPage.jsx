@@ -92,6 +92,24 @@ function SessionPage() {
     };
   }, [id]);
 
+  useEffect(() => {
+    socket.on("submission-result", (data) => {
+      console.log("Live submission result:", data);
+
+      setOutput({
+        success: true,
+        verdict: data.verdict,
+        passed: data.passed,
+        total: data.total,
+        results: data.results,
+      });
+    });
+
+    return () => {
+      socket.off("submission-result");
+    };
+  }, []);
+
   const handleLanguageChange = (e) => {
     const newLang = e.target.value;
     setSelectedLanguage(newLang);

@@ -78,19 +78,17 @@ function SessionPage() {
   }, [problemData, selectedLanguage]);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || !session) return;
 
     socket.connect();
 
-    socket.on("connect", () => {
-      console.log("Socket connected:", socket.id);
-      socket.emit("join-session", id);
-    });
+    console.log("Joining session:", id);
+    socket.emit("join-session", id);
 
     return () => {
-      socket.off("connect");
+      socket.off("submission-result");
     };
-  }, [id]);
+  }, [id, session]);
 
   useEffect(() => {
     socket.on("submission-result", (data) => {
@@ -136,7 +134,9 @@ function SessionPage() {
 
     console.log("RESULT:", result);
 
-    setOutput(result);
+    if (isParticipant) {
+      setOutput(result);
+    }
     setIsRunning(false);
   };
 

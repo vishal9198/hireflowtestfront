@@ -1,5 +1,3 @@
-// Piston API is a service for code execution
-
 const LANGUAGE_VERSIONS = {
   javascript: { language: "javascript", version: "18.15.0" },
   python: { language: "python", version: "3.11.0" },
@@ -7,11 +5,7 @@ const LANGUAGE_VERSIONS = {
   cpp: { language: "c++", version: "10.2.0" },
 };
 
-/**
- * @param {string} language
- * @param {string} code
- */
-export async function executeCode(problemId, language, code) {
+export async function executeCode(problemId, language, code, sessionId) {
   try {
     const languageConfig = LANGUAGE_VERSIONS[language];
 
@@ -28,6 +22,7 @@ export async function executeCode(problemId, language, code) {
           language: languageConfig.language,
           version: languageConfig.version,
           code,
+          sessionId,
         }),
       },
     );

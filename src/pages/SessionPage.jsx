@@ -109,7 +109,12 @@ function SessionPage() {
     console.log("Problem ID:", problemData?.id);
     console.log("Language:", selectedLanguage);
 
-    const result = await executeCode(problemData?.id, selectedLanguage, code);
+    const result = await executeCode(
+      problemData?.id,
+      selectedLanguage,
+      code,
+      id,
+    );
 
     console.log("RESULT:", result);
 

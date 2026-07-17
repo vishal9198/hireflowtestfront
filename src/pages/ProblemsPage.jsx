@@ -9,13 +9,13 @@ function ProblemsPage() {
   const problems = Object.values(PROBLEMS);
 
   const easyProblemsCount = problems.filter(
-    (p) => p.difficulty === "Easy"
+    (p) => p.difficulty === "Easy",
   ).length;
   const mediumProblemsCount = problems.filter(
-    (p) => p.difficulty === "Medium"
+    (p) => p.difficulty === "Medium",
   ).length;
   const hardProblemsCount = problems.filter(
-    (p) => p.difficulty === "Hard"
+    (p) => p.difficulty === "Hard",
   ).length;
 
   return (
@@ -52,7 +52,7 @@ function ProblemsPage() {
                           <h2 className="text-xl font-bold">{problem.title}</h2>
                           <span
                             className={`badge ${getDifficultyBadgeClass(
-                              problem.difficulty
+                              problem.difficulty,
                             )}`}
                           >
                             {problem.difficulty}

@@ -35,13 +35,13 @@ export async function executeCode(problemId, language, code, sessionId) {
         error: "Submission failed",
       };
     }
-
     return {
       success: true,
       verdict: data.verdict,
       passed: data.passed,
       total: data.total,
       results: data.results,
+      aiFeedback: data.aiFeedback,
     };
   } catch (error) {
     return {

@@ -103,6 +103,7 @@ function SessionPage() {
         passed: data.passed,
         total: data.total,
         results: data.results,
+        aiFeedback: data.aiFeedback,
       });
     });
 
